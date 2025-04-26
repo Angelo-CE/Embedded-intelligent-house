@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Control Casa Inteligente - Grupo 3</title>
+    <title>Control Casa Inteligente - Grupo 6</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -11,7 +11,7 @@
     <div class="container">
         <header class="header">
             <h1><i class="fas fa-home"></i> Casa Inteligente</h1>
-            <p class="subtitle">Sistema de Control y Monitoreo - Grupo 3</p>
+            <p class="subtitle">Sistema de Control y Monitoreo - Grupo 6 - 2025 -I semestre</p>
             <div class="login-status">
                 <span id="userStatus">Sesión iniciada: admin</span>
                 <button class="btn logout-btn" onclick="logout()">
@@ -20,16 +20,20 @@
             </div>
         </header>
 
-        <section class="dashboard-section">
-            <div class="house-model">
-                <img src="{{ url_for('static', filename='images/house-model.png') }}" alt="Modelo de Casa Inteligente">
-                <div class="house-areas">
-                    <div class="area" id="area-sala" data-light="1"></div>
-                    <div class="area" id="area-cocina" data-light="2"></div>
-                    <div class="area" id="area-dormitorio1" data-light="3"></div>
-                    <div class="area" id="area-dormitorio2" data-light="4"></div>
-                    <div class="area" id="area-comedor" data-light="5"></div>
-                </div>
+        <!-- Sección del plano interactivo -->
+        <section class="house-plan-section">
+            <h2><i class="fas fa-map-marked-alt"></i> Plano Interactivo</h2>
+            <div class="plan-container">
+                <img src="{{ url_for('static', filename='images/plano.png') }}" 
+                     class="house-plan" 
+                     alt="Plano de la casa inteligente">
+                
+                <!-- Puntos interactivos para las luces -->
+                <div class="light-point" style="top: 18%; left: 22%;" data-light-id="1"></div>
+                <div class="light-point" style="top: 18%; left: 78%;" data-light-id="2"></div>
+                <div class="light-point" style="top: 45%; left: 50%;" data-light-id="3"></div>
+                <div class="light-point" style="top: 70%; left: 30%;" data-light-id="4"></div>
+                <div class="light-point" style="top: 70%; left: 70%;" data-light-id="5"></div>
             </div>
         </section>
 
@@ -37,6 +41,7 @@
             <div class="lights-control">
                 <h2><i class="fas fa-lightbulb"></i> Control de Luces</h2>
                 <div class="light-grid">
+                    <!-- Botones de luces existentes (se mantienen igual) -->
                     <div class="light-card">
                         <h3>Sala Principal</h3>
                         <button class="btn light-btn" id="light1" data-state="off" onclick="toggleLight(1)">
@@ -91,6 +96,7 @@
                 </div>
             </div>
 
+            <!-- Sección de puertas (se mantiene igual) -->
             <div class="doors-control">
                 <h2><i class="fas fa-door-open"></i> Estado de Puertas</h2>
                 <div class="doors-grid">
@@ -129,6 +135,7 @@
             </div>
         </section>
 
+        <!-- Sección de cámara (se mantiene igual) -->
         <section class="camera-section">
             <h2><i class="fas fa-camera"></i> Monitoreo de Seguridad</h2>
             <div class="camera-container">
