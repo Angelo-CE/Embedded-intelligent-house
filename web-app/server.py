@@ -9,13 +9,13 @@ from functools import wraps
 # Configuración de Seguridad y Entorno
 # ==============================================
 app = Flask(__name__,
-            template_folder='frontend/templates',
-            static_folder='frontend/static')
+            static_folder='frontend/static', 
+            template_folder='frontend/templates')
 
-# Configuración secreta (en producción usar variables de entorno)
+
 app.secret_key = secrets.token_hex(16)
-app.config['SESSION_COOKIE_SECURE'] = True  # Habilitar en producción con HTTPS
-app.config['PERMANENT_SESSION_LIFETIME'] = 1800  # 30 minutos
+app.config['SESSION_COOKIE_SECURE'] = True  
+app.config['PERMANENT_SESSION_LIFETIME'] = 1800  
 
 # Usuarios autorizados (en producción usar base de datos)
 USERS = {
@@ -263,6 +263,18 @@ def capture_image():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route('/api/lights/status')
+@login_required
+def get_all_lights_status():
+    return jsonify({
+        "lights": [
+            {
+                "id": lid,
+                "state": "on" if GPIO.input(pin) else "off"
+            } for lid, pin in LightController.LIGHT_PINS.items()
+        ]
+    })
+
 # ==============================================
 # Manejo de Errores
 # ==============================================
@@ -286,7 +298,7 @@ if __name__ == '__main__':
     os.makedirs(os.path.join(app.static_folder, 'images'), exist_ok=True)
     
     # Configuración de entorno
-    app.config['ENV'] = 'development'  # Cambiar a 'production' en despliegue
+    app.config['ENV'] = 'development'  
     app.run(host='0.0.0.0', 
            port=5000, 
            debug=(app.config['ENV'] == 'development'),

@@ -46,6 +46,49 @@ h1 {
     font-size: 1.2em;
 }
 
+/* ============= Plano Interactivo ============= */
+.house-plan-section {
+    margin: 40px 0;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.plan-container {
+    position: relative;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.house-plan {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.light-point {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #3498db70;
+    border: 2px solid #2980b9;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+.light-point.active {
+    background: #f1c40faa;
+    border-color: #f39c12;
+    box-shadow: 0 0 15px #f1c40f;
+}
+
+.light-point:hover {
+    transform: scale(1.2);
+}
+
 /* ============= Sección de Control ============= */
 .control-section {
     display: grid;
@@ -210,6 +253,11 @@ h1 {
     .light-grid, .doors-grid {
         grid-template-columns: 1fr;
     }
+    
+    .light-point {
+        width: 20px;
+        height: 20px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -221,6 +269,11 @@ h1 {
     .camera-controls {
         flex-direction: column;
         gap: 10px;
+    }
+    
+    .house-plan-section {
+        margin: 20px 0;
+        padding: 15px;
     }
 }
 
