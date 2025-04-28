@@ -53,18 +53,23 @@ h1 {
     background: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: relative; /* Contexto de posicionamiento */
 }
 
 .plan-container {
     position: relative;
     max-width: 800px;
     margin: 20px auto;
+    background: white;
 }
 
 .house-plan {
     width: 100%;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    position: relative; /* Necesario para z-index */
+    z-index: 1; /* Capa base */
+    display: block; /* Eliminar espacio residual */
 }
 
 .light-point {
@@ -72,13 +77,13 @@ h1 {
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    background: #3498db70;
+    background: rgba(52, 152, 219, 0.3); /* Transparencia del 30% */
     border: 2px solid #2980b9;
     cursor: pointer;
     transition: all 0.3s ease;
+    z-index: 2; /* Encima de la imagen */
     transform-origin: center;
 }
-
 .light-point.active {
     background: #f1c40faa;
     border-color: #f39c12;
@@ -310,3 +315,4 @@ h1 {
     background: #3498db;
     color: white;
 }
+
