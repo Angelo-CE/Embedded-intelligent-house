@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #!/home/noel/Desktop/Proyecto1/web-app/venv/bin/python3
+=======
+#!/home/noel/Desktop/Proyecto1/venv/bin/python3
+>>>>>>> c165d480fce89e309c153ced0869e40a9cf2d81e
 # -*- coding: utf-8 -*-
 import re
 import sys
