@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Casa Inteligente - Grupo 6</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-home"></i> Casa Inteligente</h1>
+            <p class="subtitle">Sistema de Control y Monitoreo - Grupo 6 - 2025 - I semestre</p>
+            <div class="login-status">
+                <span id="userStatus">Sesión iniciada: {{ session.username }}</span>
+                <button class="btn logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+                </button>
+            </div>
+        </header>
+
+        <!-- Sección del plano interactivo -->
+        <section class="house-plan-section">
+            <h2><i class="fas fa-map-marked-alt"></i> Plano Interactivo</h2>
+            <div class="plan-container">
+                <img src="/static/images/plano.png" 
+                     class="house-plan" 
+                     alt="Plano de la casa inteligente">
+                
+                <!-- Puntos interactivos para las luces -->
+                <div class="light-point" style="top: 18%; left: 22%;" data-light-id="1"></div>
+                <div class="light-point" style="top: 18%; left: 78%;" data-light-id="2"></div>
+                <div class="light-point" style="top: 45%; left: 50%;" data-light-id="3"></div>
+                <div class="light-point" style="top: 70%; left: 30%;" data-light-id="4"></div>
+                <div class="light-point" style="top: 70%; left: 70%;" data-light-id="5"></div>
+            </div>
+        </section>
+
+        <section class="control-section">
+            <div class="lights-control">
+                <h2><i class="fas fa-lightbulb"></i> Control de Luces</h2>
+                <div class="light-grid">
+                    <!-- Botones de luces -->
+                    <div class="light-card">
+                        <h3>Cuarto 1</h3>
+                        <button class="btn light-btn" id="light1" data-state="off" onclick="toggleLight(1)">
+                            <span class="btn-text">Cuarto 1: OFF</span>
+                            <div class="led-indicator"></div>
+                        </button>
+                    </div>
+
+                    <div class="light-card">
+                        <h3>Baño</h3>
+                        <button class="btn light-btn" id="light2" data-state="off" onclick="toggleLight(2)">
+                            <span class="btn-text">Baño: OFF</span>
+                            <div class="led-indicator"></div>
+                        </button>
+                    </div>
+
+                    <div class="light-card">
+                        <h3>Cuarto 2</h3>
+                        <button class="btn light-btn" id="light3" data-state="off" onclick="toggleLight(3)">
+                            <span class="btn-text">Cuarto 2: OFF</span>
+                            <div class="led-indicator"></div>
+                        </button>
+                    </div>
+
+                    <div class="light-card">
+                        <h3>Cocina</h3>
+                        <button class="btn light-btn" id="light4" data-state="off" onclick="toggleLight(4)">
+                            <span class="btn-text">Cocina: OFF</span>
+                            <div class="led-indicator"></div>
+                        </button>
+                    </div>
+
+                    <div class="light-card">
+                        <h3>Comedor</h3>
+                        <button class="btn light-btn" id="light5" data-state="off" onclick="toggleLight(5)">
+                            <span class="btn-text">Comedor: OFF</span>
+                            <div class="led-indicator"></div>
+                        </button>
+                    </div>
+
+                    <div class="light-card all-lights">
+                        <h3>Todas las Luces</h3>
+                        <div class="light-actions">
+                            <button class="btn light-action-btn" onclick="controlAllLights('on')">
+                                <i class="fas fa-power-off"></i> Encender Todas
+                            </button>
+                            <button class="btn light-action-btn" onclick="controlAllLights('off')">
+                                <i class="fas fa-power-off"></i> Apagar Todas
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección de puertas -->
+            <div class="doors-control">
+                <h2><i class="fas fa-door-open"></i> Estado de Puertas</h2>
+                <div class="doors-grid">
+                    <div class="door-card">
+                        <h3>Puerta Principal</h3>
+                        <div class="door-status" id="door1" data-state="closed">
+                            <i class="fas fa-door-closed"></i>
+                            <span>Cerrada</span>
+                        </div>
+                    </div>
+
+                    <div class="door-card">
+                        <h3>Puerta Trasera</h3>
+                        <div class="door-status" id="door2" data-state="closed">
+                            <i class="fas fa-door-closed"></i>
+                            <span>Cerrada</span>
+                        </div>
+                    </div>
+
+                    <div class="door-card">
+                        <h3>Dormitorio Principal</h3>
+                        <div class="door-status" id="door3" data-state="closed">
+                            <i class="fas fa-door-closed"></i>
+                            <span>Cerrada</span>
+                        </div>
+                    </div>
+
+                    <div class="door-card">
+                        <h3>Dormitorio Secundario</h3>
+                        <div class="door-status" id="door4" data-state="closed">
+                            <i class="fas fa-door-closed"></i>
+                            <span>Cerrada</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de cámara -->
+        <section class="camera-section">
+            <h2><i class="fas fa-camera"></i> Monitoreo de Seguridad</h2>
+            <div class="camera-container">
+                <div class="camera-feed">
+                    <img src="{{ url_for('static', filename='images/sample.jpg') }}" 
+                         id="cameraView" 
+                         class="camera-image"
+                         alt="Vista en tiempo real de la cámara">
+                    <div class="camera-controls">
+                        <button class="btn camera-btn" onclick="refreshCamera()">
+                            <i class="fas fa-sync-alt"></i> Actualizar Vista
+                        </button>
+                        <div class="timestamp" id="cameraTimestamp">Última actualización: --/--/---- --:--:--</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
